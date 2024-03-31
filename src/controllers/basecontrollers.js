@@ -23,7 +23,7 @@ module.exports = {
     },
     buscarUm: async (req, res) => { 
         let json = {error:'', result:{}};
-        
+
         let id = req.params.id; 
         let carro = await baseservice.buscarUm(id);
 
@@ -31,5 +31,51 @@ module.exports = {
             json.result = carro;
         } 
         res.json(json);
+    },
+    inserir: async (req, res) => { 
+        let json = {error:'', result:{}};
+        
+        let modelo = req.body.modelo; 
+        let placa = req.body.placa; 
+        let ano = req.body.ano;
+        
+        if(modelo && placa && ano) { 
+            try {
+                let carroId = await baseservice.inserir(modelo, ano, placa); 
+                json.result = { 
+                    id: carroId, 
+                    modelo, 
+                    ano, 
+                    placa
+                };
+            } catch(error) {
+                json.error = 'Erro ao inserir o carro';
+            }
+        } else { 
+            json.error = 'Campos não enviados'; 
+        }
+        res.json(json);
+    }, 
+    alterar: async (req, res) => { 
+        let json = {error:'', result:{}};
+        let id = req.params.id;
+        let campos = req.body; // Usando o objeto completo do corpo da requisição
+
+        if(id && Object.keys(campos).length > 0) { // Verifica se o ID e pelo menos um campo para alterar foram fornecidos
+            try {
+                let resultado = await baseservice.alterar(id, campos); 
+                if(resultado.affectedRows > 0) {
+                    json.result = "Carro atualizado com sucesso.";
+                } else {
+                    json.error = "Não foi possível atualizar o carro.";
+                }
+            } catch(error) {
+                json.error = 'Erro ao atualizar o carro.';
+            }
+        } else { 
+            json.error = 'Campos não enviados ou ID ausente.'; 
+        }
+        res.json(json);
     }
 };
+
