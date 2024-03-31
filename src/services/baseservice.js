@@ -61,5 +61,16 @@ module.exports = {
                 reject(new Error("Nenhum campo válido para atualizar"));
             }
         });
+    }, 
+    excluir: (id) => {
+        return new Promise((resolve, reject) => {
+            db.query('DELETE FROM carros WHERE id = ?', [id], (error, results) => {
+                if(error) {
+                    reject(error);
+                    return;
+                }
+                resolve(results);
+            });
+        });
     }
 };

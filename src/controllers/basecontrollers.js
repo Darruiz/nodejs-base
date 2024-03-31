@@ -76,6 +76,19 @@ module.exports = {
             json.error = 'Campos não enviados ou ID ausente.'; 
         }
         res.json(json);
+    }, 
+    excluir: async (req, res) => { 
+        let json = {error:'', result:{}};
+        try {
+            const results = await baseservice.excluir(req.params.id);
+            if (results.affectedRows > 0) {
+                json.result = "Carro excluído com sucesso.";
+            } else {
+                json.error = "Nenhum carro foi excluído.";
+            }
+        } catch(error) {
+            json.error = "Erro ao excluir o carro.";
+        }
+        res.json(json); 
     }
 };
-

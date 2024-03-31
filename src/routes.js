@@ -6,6 +6,6 @@ const carrocontroller = require('./controllers/basecontrollers.js');
 router.get('/carros', carrocontroller.buscarTodos);
 router.get('/carro/:id', carrocontroller.buscarUm);
 router.post('/carro/', carrocontroller.inserir);
-router.put('/carro/:id', carrocontroller.alterar);
+router.delete('/carro/:id', carrocontroller.excluir);
 
 module.exports = router;
