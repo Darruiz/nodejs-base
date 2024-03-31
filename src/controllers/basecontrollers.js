@@ -23,7 +23,7 @@ module.exports = {
     },
     buscarUm: async (req, res) => { 
         let json = {error:'', result:{}};
-
+        
         let id = req.params.id; 
         let carro = await baseservice.buscarUm(id);
 

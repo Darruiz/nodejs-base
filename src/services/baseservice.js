@@ -8,16 +8,16 @@ module.exports = {
                 resolve(results);
             });
         });
-    }, 
-    buscarUM: (id) => { 
-        return new Promise((aceitp,rejeitado)=> { 
-            db.query('SELE * FROM carros WHERE id = ?', [id], (error, results)=> { 
-                if(error) { reject(error); return; } 
-                if(results.length > 0) { 
-                    aceito(reults[0]); 
-                } else { 
-                    aceito(false);
-                } 
+    },
+    buscarUm: (id) => {
+        return new Promise((resolve, reject) => { 
+            db.query('SELECT * FROM carros WHERE id = ?', [id], (error, results) => {
+                if(error) { reject(error); return; }
+                if(results.length > 0) {
+                    resolve(results[0]); 
+                } else {
+                    resolve(false);
+                }
             });
         });
     }
