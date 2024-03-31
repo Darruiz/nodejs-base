@@ -8,5 +8,17 @@ module.exports = {
                 resolve(results);
             });
         });
+    }, 
+    buscarUM: (id) => { 
+        return new Promise((aceitp,rejeitado)=> { 
+            db.query('SELE * FROM carros WHERE id = ?', [id], (error, results)=> { 
+                if(error) { reject(error); return; } 
+                if(results.length > 0) { 
+                    aceito(reults[0]); 
+                } else { 
+                    aceito(false);
+                } 
+            });
+        });
     }
 };
